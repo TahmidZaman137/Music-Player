@@ -14,11 +14,10 @@ This project uses semantic versioning to distinguish between commits. An explana
 
 ## Roadmap
 
-Roadmap is subject to change. (last reviewed 09/04/2018).
+Roadmap is subject to change. (last reviewed 26/04/2018).
 
 | Version |	Defining Feature  |
 |--|--|
-| 0.1 | Initial code written. No functional GUI yet. |
 | 0.2 | Basic GUI designed with clearly defined and separate player and library sections.|
 | 0.3 | Basic buttons added and at least one track can be played/paused. |
 | 0.4 | Track progress bar/slider added. |
@@ -35,6 +34,7 @@ Roadmap is subject to change. (last reviewed 09/04/2018).
 ## History
 | Version |	Defining Feature  |
 |--|--|
+| 0.1 | Initial code written. No functional GUI yet. |
 
 
 
