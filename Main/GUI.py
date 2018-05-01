@@ -11,29 +11,61 @@ from kivy.uix.label import Label
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 
 class BaseGUI(GridLayout): # root widget for entire GUI
 
-    def __init__(self, **kwargs):  # defines initial properties of the GUI.
+    def __init__(self, **kwargs):  # defines initial properties of the GUI
         super(BaseGUI, self).__init__(**kwargs)  # this has to be here, trust me...
         self.rows = 2
-        self.add_widget(Button(text="Screen Manager\n    Placeholder", size_hint_y = 5))
 
-        # adds empty toolbar to bottom row.
+        # added screenmanager widget with two screens to top row
+        sm = ScreenManager(size_hint = (1, 5))
+        screen = Screen(name='Page 1')
+        sm.add_widget(screen)
+        screen.add_widget(Button(text = "Main Page"))
+        screen2 = Screen(name="Page 2")
+        sm.add_widget(screen2)
+        screen2.add_widget(Button(text = "Playlist Page"))
+
+        self.add_widget(sm)
+
+        # adds empty toolbar to bottom row
         toolbar = FloatLayout()
         self.add_widget(toolbar)
 
-        # anchored toolbar buttons to centre of toolbar.
+        # function for switching between screens
+        def screenChange(instance):
+            if sm.current == "Page 1":
+                sm.current = "Page 2"
+            elif sm.current == "Page 2":
+                sm.current = "Page 1"
+
+        # anchored switch button to right of toolbar
+        cbAnchor = AnchorLayout(anchor_x = "right", anchor_y = "center")
+        toolbar.add_widget(cbAnchor)
+
+        # created boxlayout to contain switch button
+        cbBox = BoxLayout(size_hint = (0.125, 0.5))
+        cbAnchor.add_widget(cbBox)
+
+        # Creates switch button
+        changeButton = Button(text="Switch")
+        changeButton.bind(on_press=screenChange)
+        cbBox.add_widget(changeButton)
+
+        # anchored toolbar buttons to centre of toolbar
         toolbarButtonsAnchor = AnchorLayout(anchor_x = "center", anchor_y = "center")
         toolbar.add_widget(toolbarButtonsAnchor)
 
-        # created gridlayout for 5 toolbar buttons.
+        # created gridlayout for 5 toolbar buttons
         toolbarButtons = GridLayout(size_hint = (0.5, 0.5))
         toolbarButtons.cols = 5
         toolbarButtonsAnchor.add_widget(toolbarButtons)
 
-        #Create the toolbar buttons
+        # Creates the toolbar buttons
         shuffleBtn = Button(text="Shuffle")
         backBtn = Button(text="Back")
         playBtn = Button(text = "Play")
