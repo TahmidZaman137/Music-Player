@@ -14,8 +14,29 @@ from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
+from kivy.core.audio import SoundLoader
 
 sm = None
+position = 0
+
+
+
+def PlayPauseSong(instance):
+    global position
+    if song.state == "stop":
+        song.play()
+        song.seek(position)
+        instance.text = "Pause"
+    elif song.state == "play":
+        position = song.get_pos()
+        print(position)
+        song.stop()
+        instance.text = "Play"
+
+
+song = SoundLoader.load("DoIt.mp3")
+
+
 
 
 def CreateToolbarButtons():
@@ -31,6 +52,10 @@ def CreateToolbarButtons():
     shuffleBtn = Button(text="Shuffle")
     backBtn = Button(text="Back")
     playBtn = Button(text="Play")
+    playBtn.bind(on_press=PlayPauseSong)
+
+
+
     forwardBtn = Button(text="Forward")
     loopBtn = Button(text="Loop")
 
