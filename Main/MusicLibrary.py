@@ -6,4 +6,3 @@
 # ===================================================================================
 from kivy.core.audio import SoundLoader
 
-def loadMusic():
