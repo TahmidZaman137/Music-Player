@@ -1,12 +1,12 @@
-# Music Player 0.2.X
+# Music Player 0.4.X
 
-In this repository you will find the source code of Music Player 0.3.X.
+In this repository you will find the source code of Music Player 0.4.X.
 
 
 ----------
 ## NOTICE
 
-This code is written in Python 3.5. The module Kivy (version 1.10.0) is required to run this code.
+This code is written in Python 3.6. The module Kivy (version 1.10.0) is required to run this code.
 
 This project uses semantic versioning to distinguish between commits. An explanation of this can be found at: https://semver.org/
 
@@ -14,14 +14,14 @@ This project uses semantic versioning to distinguish between commits. An explana
 
 ## Roadmap
 
-Roadmap is subject to change. (last reviewed 05/05/2018).
+Roadmap is subject to change. (last reviewed 13/05/2018).
 
 | Version |	Defining Feature  |
 |--|--|
-| 0.4 | Track progress bar/slider added. |
 | 0.5 | Volume adjustment added. |
-| 0.6 | Additional tracks added to track list and can be switched between and selected. |
-| 0.7 | Functionality added for all player buttons. |
+| 0.6 | Implemented music library GUI. |
+| 0.7 | Additional tracks added to track list and can be switched between and selected. |
+| 0.8 | Functionality added for all player buttons. |
 | 1.0 | Technical review, validation and stabilisation. |
 
 
@@ -35,6 +35,7 @@ Roadmap is subject to change. (last reviewed 05/05/2018).
 | 0.1 | Initial code written. No functional GUI yet. |
 | 0.2 | Basic GUI designed with clearly defined and separate player and library sections.|
 | 0.3 | Basic buttons added and at least one track can be played/paused. |
+| 0.4 | Track progress bar/slider added. |
 
 
 

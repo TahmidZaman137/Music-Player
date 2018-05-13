@@ -15,28 +15,35 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 from kivy.core.audio import SoundLoader
+from kivy.uix.slider import Slider
+import threading
 
 sm = None
 position = 0
-
-
-
-def PlayPauseSong(instance):
-    global position
-    if song.state == "stop":
-        song.play()
-        song.seek(position)
-        instance.text = "Pause"
-    elif song.state == "play":
-        position = song.get_pos()
-        print(position)
-        song.stop()
-        instance.text = "Play"
-
+tbSlider = None
+isSliderTracking = False
+shouldSliderTrack = False
 
 song = SoundLoader.load("DoIt.mp3")
 
 
+class SliderThread(threading.Thread):
+    def run(self):
+        UpdateSlider()
+
+
+def PlayPauseSong(instance):
+    global position, isSliderTracking, shouldSliderTrack
+    if song.state == "stop":
+        song.play()
+        song.seek(position)
+        instance.text = "Pause"
+        shouldSliderTrack = True
+    elif song.state == "play":
+        print(position)
+        shouldSliderTrack = False
+        song.stop()
+        instance.text = "Play"
 
 
 def CreateToolbarButtons():
@@ -54,8 +61,6 @@ def CreateToolbarButtons():
     playBtn = Button(text="Play")
     playBtn.bind(on_press=PlayPauseSong)
 
-
-
     forwardBtn = Button(text="Forward")
     loopBtn = Button(text="Loop")
 
@@ -68,9 +73,10 @@ def CreateToolbarButtons():
 
     return toolbarButtonsAnchor
 
+
 def CreateScreenManager():
     global sm
-    sm = ScreenManager(size_hint=(1, 5))
+    sm = ScreenManager(size_hint=(1, 4))
     screen = Screen(name='Page 1')
     sm.add_widget(screen)
     screen.add_widget(Button(text="Main Page"))
@@ -80,26 +86,46 @@ def CreateScreenManager():
 
     return sm
 
+
 def screenChange(instance): # functionality for "switch" button
     if sm.current == "Page 1":
         sm.current = "Page 2"
     elif sm.current == "Page 2":
         sm.current = "Page 1"
 
+
 def CreateSwitchButton():
     # anchored switch button to right of toolbar
     sbAnchor = AnchorLayout(anchor_x="right", anchor_y="center")
 
-    # created boxlayout to contain switch button
-    sbBox = BoxLayout(size_hint=(0.125, 0.5))
-    sbAnchor.add_widget(sbBox)
-
     # Creates switch button
-    changeButton = Button(text="Switch")
+    changeButton = Button(size_hint = (0.125, 0.5), text="Switch")
     changeButton.bind(on_press=screenChange)
-    sbBox.add_widget(changeButton)
+    sbAnchor.add_widget(changeButton)
 
     return sbAnchor
+
+
+def CreateSlider():
+    global tbSlider
+
+    sliderAnchor = AnchorLayout(anchor_x="center", anchor_y="bottom")
+    tbSlider = Slider(min=0, max=song.length, size_hint = (0.6, 0.3))
+    sliderAnchor.add_widget(tbSlider)
+
+    mySliderThread = SliderThread()
+    mySliderThread.start()
+    return sliderAnchor
+
+
+def UpdateSlider():
+    global position, shouldSliderTrack, isSliderTracking
+    while True:
+        if isSliderTracking == True and shouldSliderTrack == False:
+            isSliderTracking = False
+        if shouldSliderTrack == True:
+            position = song.get_pos()
+        tbSlider.value = position
 
 
 class BaseGUI(GridLayout): # root widget for entire GUI
@@ -115,6 +141,7 @@ class BaseGUI(GridLayout): # root widget for entire GUI
 
         toolbar.add_widget(CreateSwitchButton())
         toolbar.add_widget(CreateToolbarButtons())
+        toolbar.add_widget(CreateSlider())
 
 
 class MyApp(App):
