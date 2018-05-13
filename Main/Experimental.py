@@ -18,6 +18,9 @@ class BaseGUI(GridLayout):
 
     song = SoundLoader.load("DoIt.mp3")
 
+
+
+
     def ScreenChange(self):
         myScreenManager = self.ids["sm"]
         if myScreenManager.current == "Main":
@@ -31,14 +34,23 @@ class BaseGUI(GridLayout):
         if self.song.state == "stop":
             self.song.play()
             self.song.seek(position)
+            print("play " + str(position))
             playButton.text = "Pause"
             shouldSliderTrack = True
         elif self.song.state == "play":
             position = self.song.get_pos()
-            print(position)
+            print("stop " + str(position))
             shouldSliderTrack = False
             self.song.stop()
             playButton.text = "Play"
+
+    def skip(self):
+        global position
+        mySlider = self.ids["slider"]
+        self.song.seek(mySlider.value)
+        position = mySlider.value
+        print("skipped to " + str(position))
+
 
 
 root_widget = Builder.load_string("""
@@ -87,9 +99,12 @@ BaseGUI:
             anchor_x: "center"
             anchor_y: "bottom"
             Slider:
+                id: slider
                 min: 0
                 max: root.song.length
                 size_hint: (0.6, 0.3)
+                on_touch_up: root.skip()
+                
             
 """)
 
