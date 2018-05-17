@@ -32,20 +32,24 @@ class BaseGUI(GridLayout):
         if self.song.state == "stop":
             self.song.play()
             self.song.seek(position)
-            print("play " + str(position))
+            print("played at " + str(position))
             playButton.text = "Pause"
         elif self.song.state == "play":
             position = self.song.get_pos()
-            print("stop " + str(position))
+            print("stopped at " + str(position))
             self.song.stop()
             playButton.text = "Play"
 
     def Skip(self):
         global position
         mySlider = self.ids["slider"]
-        self.song.seek(mySlider.value)
         position = mySlider.value
+        self.song.seek(position)
         print("skipped to " + str(position))
+
+    def ChangeVolume(self):
+        volumeSlider = self.ids["volumebar"]
+        self.song.volume = volumeSlider.value
 
 
 root_widget = Builder.load_string("""
@@ -98,9 +102,20 @@ BaseGUI:
                 min: 0
                 max: root.song.length
                 size_hint: (0.6, 0.3)
-                on_touch_up: root.skip()
-
-
+                on_value: root.Skip()
+        AnchorLayout:
+            anchor_x: "left"
+            anchor_y: "center"
+            Slider:
+                id: volumebar
+                min: 0
+                max: 1
+                value: 0.5
+                size_hint: (0.2, 0.4)
+                on_value: root.ChangeVolume()
+                
+                
+                
 """)
 
 
