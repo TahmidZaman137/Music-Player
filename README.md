@@ -1,6 +1,6 @@
-# Music Player 0.4.X
+# Music Player 0.5.X
 
-In this repository you will find the source code of Music Player 0.4.X.
+In this repository you will find the source code of Music Player 0.5.X.
 
 
 ----------
@@ -14,11 +14,10 @@ This project uses semantic versioning to distinguish between commits. An explana
 
 ## Roadmap
 
-Roadmap is subject to change. (last reviewed 13/05/2018).
+Roadmap is subject to change. (last reviewed 17/05/2018).
 
 | Version |	Defining Feature  |
 |--|--|
-| 0.5 | Volume adjustment added. |
 | 0.6 | Implemented music library GUI. |
 | 0.7 | Additional tracks added to track list and can be switched between and selected. |
 | 0.8 | Functionality added for all player buttons. |
@@ -36,6 +35,7 @@ Roadmap is subject to change. (last reviewed 13/05/2018).
 | 0.2 | Basic GUI designed with clearly defined and separate player and library sections.|
 | 0.3 | Basic buttons added and at least one track can be played/paused. |
 | 0.4 | Track progress bar/slider added. |
+| 0.5 | Volume adjustment added. |
 
 
 
