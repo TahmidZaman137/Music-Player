@@ -1,6 +1,6 @@
-# Music Player 0.7.X
+# Music Player 0.8.X
 
-In this repository you will find the source code of Music Player 0.7.X.
+In this repository you will find the source code of Music Player 0.8.X.
 
 
 ----------
@@ -18,7 +18,6 @@ Roadmap is subject to change. (last reviewed 07/06/2018).
 
 | Version |	Defining Feature  |
 |--|--|
-| 0.8 | Functionality added for all player buttons. |
 | 1.0 | Technical review, validation and stabilisation. |
 
 
@@ -36,6 +35,7 @@ Roadmap is subject to change. (last reviewed 07/06/2018).
 | 0.5 | Volume adjustment added. |
 | 0.6 | Implemented music library GUI. |
 | 0.7 | Additional tracks added to track list and can be switched between and selected. |
+| 0.8 | Functionality added for all player buttons. |
 
 
 
